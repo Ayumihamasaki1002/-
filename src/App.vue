@@ -1,12 +1,10 @@
 <script setup lang="ts">
-
+import index from '@/views/layout/index.vue'
 </script>
 
 <template>
-    <RouterView></RouterView>
-    <div class="test">
-      test scss
-    </div>
+  <RouterView></RouterView>  
+   
 </template>
 
 <style scoped lang="scss">
