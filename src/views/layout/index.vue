@@ -6,6 +6,7 @@ import LayoutFooter from './components/LayoutFooter.vue'
 </script>
 
 <template>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_2143783_iq6z4ey5vu.css">
     <div style="display: flex;flex-direction: column;">
         <LayoutNav />
   <LayoutHeader />
