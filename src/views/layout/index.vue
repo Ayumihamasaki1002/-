@@ -2,19 +2,19 @@
 import LayoutNav from './components/LayoutNav.vue'
 import LayoutHeader from './components/LayoutHeader.vue'
 import LayoutFooter from './components/LayoutFooter.vue'
+import LayoutSticky from './components/LayoutSticky.vue'
 
 </script>
 
 <template>
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2143783_iq6z4ey5vu.css">
     <div style="display: flex;flex-direction: column;">
+        <LayoutSticky />
         <LayoutNav />
-  <LayoutHeader />
-  <RouterView />
-  <LayoutFooter />
+        <LayoutHeader />
+        <RouterView />
+        <LayoutFooter />
     </div>
- 
 </template>
 
-<style>
-</style>
+<style></style>

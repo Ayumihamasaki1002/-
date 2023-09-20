@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import index from '@/views/layout/index.vue'
+// import index from '@/views/layout/index.vue'
 </script>
 
 <template>
-  <RouterView></RouterView>  
-   
+  <RouterView></RouterView>
 </template>
 
 <style scoped lang="scss">
-.test{
+*{
+  padding: 0;
+}
+
+
+.test {
   color: $priceColor;
 }
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -47,6 +52,8 @@ nav a:first-of-type {
 }
 
 @media (min-width: 1024px) {
+
+
   header {
     display: flex;
     place-items: center;
@@ -67,7 +74,6 @@ nav a:first-of-type {
     text-align: left;
     margin-left: -1rem;
     font-size: 1rem;
-
     padding: 1rem 0;
     margin-top: 1rem;
   }
