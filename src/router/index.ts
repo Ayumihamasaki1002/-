@@ -1,13 +1,11 @@
 // createRouter : 创建router实例
 // createWebHistory : 创建history模式的路由
 
-
-
 import { createRouter, createWebHashHistory } from 'vue-router'
-import Layout from '@/views/Layout/index.vue'
-import Home from '@/views/Home/index.vue'
-import Category from '@/views/Category/index.vue'
-import Login from '@/views/Login/index.vue'
+import Layout from '@/views/layout/index.vue'
+import Home from '@/views/home/index.vue'
+import Category from '@/views/category/index.vue'
+import Login from '@/views/login/index.vue'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
