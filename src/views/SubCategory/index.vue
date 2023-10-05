@@ -44,7 +44,7 @@ const load = async () => {
     reqData.value.page++
     const res = await getSubCategoryAPI(reqData.value)
     goodList.value = [...goodList.value,...res.result.items]
-
+    
     if(res.result.items.length === 0 ){
         disabled.value = true
     }

@@ -7,6 +7,7 @@ import Home from '@/views/home/index.vue'
 import Category from '@/views/category/index.vue'
 import Login from '@/views/login/index.vue'
 import SubCategory from '@/views/SubCategory/index.vue'
+import Datail from '@/views/Detail/index.vue'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
@@ -28,6 +29,10 @@ const router = createRouter({
         {
           path: 'category/sub/:id',
           component: SubCategory
+        },
+        {
+          path:'detail/:id',
+          component: Datail
         }
         
       ]
@@ -38,7 +43,14 @@ const router = createRouter({
       component: Login
     },
 
-  ]
+  ],
+  // 路由行为定义
+  scrollBehavior () {
+    return{
+      top:0
+    }
+  }
+
 })
 
 export default router
