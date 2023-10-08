@@ -50,7 +50,7 @@ const doLogin = () => {
     if (valid) {
       await userStore.getUserInfo({ account, password })
       
-      console.log(res);
+      // console.log(res);
       
       // 1.提示用户
       ElMessage({type: 'success', message: '登录成功！'})
