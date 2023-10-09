@@ -8,6 +8,7 @@ import Category from '@/views/category/index.vue'
 import Login from '@/views/login/index.vue'
 import SubCategory from '@/views/SubCategory/index.vue'
 import Datail from '@/views/Detail/index.vue'
+import Cartlist from '@/views/Cartlist/index.vue'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
@@ -33,6 +34,10 @@ const router = createRouter({
         {
           path:'detail/:id',
           component: Datail
+        },
+        {
+          path:'cartlist',
+          component: Cartlist
         }
         
       ]
