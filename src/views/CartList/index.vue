@@ -2,6 +2,14 @@
 import { useCartStore } from '@/stores/cartStore'
 const cartStore = useCartStore()
 
+// 单选回调
+const singleCheck = (selected,i)=>{
+  console.log(selected,i.skuId);
+  cartStore.singleCheck(i.skuId,selected)
+}
+const allCheck = (checked)=>{
+  cartStore.checkAll(checked)
+}
 </script>
 
 <template>
@@ -12,7 +20,7 @@ const cartStore = useCartStore()
           <thead>
             <tr>
               <th width="120">
-                <el-checkbox/>
+                <el-checkbox :model-value="cartStore.isAll" @change="allCheck"/>
               </th>
               <th width="400">商品信息</th>
               <th width="220">单价</th>
@@ -25,7 +33,8 @@ const cartStore = useCartStore()
           <tbody>
             <tr v-for="i in cartStore.cartList" :key="i.id">
               <td>
-                <el-checkbox />
+                <!-- 单选框 -->
+                <el-checkbox  :model-value="i.selected" @change="(selected)=>singleCheck(selected,i)"/>
               </td>
               <td>
                 <div class="goods">
@@ -72,11 +81,11 @@ const cartStore = useCartStore()
       <!-- 操作栏 -->
       <div class="action">
         <div class="batch">
-          共 10 件商品，已选择 2 件，商品合计：
-          <span class="red">¥ 200.00 </span>
+          共 {{ cartStore.allCount }} 件商品，已选择 {{ cartStore.selectCount }} 件，商品合计：
+          <span class="red">¥ {{ cartStore.selectPrice }} </span>
         </div>
         <div class="total">
-          <el-button size="large" type="primary" >下单结算</el-button>
+          <el-button size="large" type="primary" @click="$router.push('/checkout')">下单结算</el-button>
         </div>
       </div>
     </div>
