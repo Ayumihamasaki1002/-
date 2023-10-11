@@ -1,8 +1,11 @@
 <script setup>
-import { getCheckInfoAPI } from '@/apis/checkout'
+import { getCheckInfoAPI,createOrderAPI } from '@/apis/checkout'
+import { useRouter } from 'vue-router'
 import { ref,onMounted } from 'vue'
+import { useCartStore } from '@/stores/cartStore'
 const checkInfo = ref({})  // 订单对象
 const curAddress = ref({})
+const cartStore = useCartStore()
 const getCheckInfo = async ()  =>{
     const res = await getCheckInfoAPI()
     checkInfo.value = res.result
@@ -16,6 +19,49 @@ onMounted(()=>getCheckInfo())
 
 // 控制弹框打开
 const toggleFlag = ref(false)
+
+
+// 切换地址
+const activeAddress = ref({})
+const switchAddress = (item)=>{
+  activeAddress.value = item
+}
+
+const confirm = () =>{
+  curAddress.value = activeAddress.value
+  toggleFlag.value = false
+  activeAddress.value = {}
+}
+// 创建订单
+const router = useRouter()
+const createOrder = async () =>{
+  const res = await createOrderAPI({
+    deliveryTimeType:1,
+    payType:1,
+    payChannel:1,
+    buyerMessage:'',
+    goods:checkInfo.value.goods.map(item=>{
+      return{
+        skuId:item.skuId,
+        count:item.count
+      }
+    }),
+    addressId: curAddress.value.id
+  })
+  // 接口返回会参数不对 凑合着用
+  // 凑合不了，因为后端接口问题导致后面支付拼接id有问题，支付不了
+  // 支付模块到此结束
+  const orderId = res.result.items[0].id
+  router.push({
+    path:'/pay',
+    query:{
+      id:orderId
+    }
+  })
+
+  //更新购物车
+  cartStore.updateAction()
+}
 
 </script>
 
@@ -111,7 +157,7 @@ const toggleFlag = ref(false)
         </div>
         <!-- 提交订单 -->
         <div class="submit">
-          <el-button type="primary" size="large" >提交订单</el-button>
+          <el-button type="primary" size="large" @click="createOrder" >提交订单</el-button>
         </div>
       </div>
     </div>
@@ -119,7 +165,7 @@ const toggleFlag = ref(false)
   <!-- 切换地址 -->
   <el-dialog v-model="toggleFlag" title="切换收货地址" width="30%" center>
   <div class="addressWrapper">
-    <div class="text item" v-for="item in checkInfo.userAddresses"  :key="item.id">
+    <div class="text item" :class="{active:activeAddress.id === item.id}" @click="switchAddress(item)" v-for="item in checkInfo.userAddresses"  :key="item.id">
       <ul>
       <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
       <li><span>联系方式：</span>{{ item.contact }}</li>
@@ -130,7 +176,7 @@ const toggleFlag = ref(false)
   <template #footer>
     <span class="dialog-footer">
       <el-button>取消</el-button>
-      <el-button type="primary">确定</el-button>
+      <el-button type="primary" @click="confirm">确定</el-button>
     </span>
   </template>
 </el-dialog>

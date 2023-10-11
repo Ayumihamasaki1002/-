@@ -10,6 +10,11 @@ import SubCategory from '@/views/SubCategory/index.vue'
 import Datail from '@/views/Detail/index.vue'
 import Cartlist from '@/views/Cartlist/index.vue'
 import Checkout from '@/views/Checkout/index.vue'
+import Pay from '@/views/pay/index.vue'
+import Member from '@/views/member/index.vue'
+import userInfo from '@/views/member/components/userInfo.vue'
+import userOrder from '@/views/member/components/userOrder.vue'
+
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
@@ -41,8 +46,26 @@ const router = createRouter({
           component: Cartlist
         },
         {
-          path:'checkout',
+          path:'checkout/',
           component: Checkout
+        },
+        {
+          path:'pay',
+          component: Pay
+        },
+        {
+          path:'member',
+          component: Member,
+          children:[
+            {
+              path: '',
+              component: userInfo
+            },
+            {
+              path: 'order',
+              component: userOrder
+            }
+          ]
         }
         
       ]
